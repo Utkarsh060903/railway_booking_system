@@ -13,7 +13,7 @@ const BookingManagement = ({ showNotification }) => {
     try {
       setLoading(true);
       const response = await fetch(
-        `http://localhost:3000/api/bookings/${bookingId}`
+        `https://railway-booking-system-qf4u.onrender.com/api/bookings/${bookingId}`
       );
       const data = await response.json();
       showNotification("Booking Status", `Status: ${data.status}`);
@@ -32,7 +32,7 @@ const BookingManagement = ({ showNotification }) => {
 
     try {
       setLoading(true);
-      await fetch(`http://localhost:3000/api/bookings/${bookingId}/cancel`, {
+      await fetch(`https://railway-booking-system-qf4u.onrender.com/api/bookings/${bookingId}/cancel`, {
         method: "PUT",
       });
       showNotification("Success", "Booking cancelled successfully");

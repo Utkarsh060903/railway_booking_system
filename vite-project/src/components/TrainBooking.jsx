@@ -12,7 +12,7 @@ const TrainBooking = ({ showNotification }) => {
 
   const fetchTrains = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/trains");
+      const response = await fetch("https://railway-booking-system-qf4u.onrender.com/api/trains");
       const data = await response.json();
       setTrains(data);
     } catch (error) {
@@ -24,7 +24,7 @@ const TrainBooking = ({ showNotification }) => {
     try {
       setLoading(true);
       const response = await fetch(
-        `http://localhost:3000/api/trains/${selectedTrain}/availability`
+        `https://railway-booking-system-qf4u.onrender.com/api/trains/${selectedTrain}/availability`
       );
       const data = await response.json();
       showNotification("Seat Availability", `Available seats: ${data.availableSeats}`);
@@ -43,7 +43,7 @@ const TrainBooking = ({ showNotification }) => {
 
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:3000/api/bookings", {
+      const response = await fetch("https://railway-booking-system-qf4u.onrender.com/api/bookings", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
