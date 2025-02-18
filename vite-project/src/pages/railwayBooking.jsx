@@ -10,7 +10,7 @@ const RailwaySystem = () => {
 
   const showNotification = (title, message, type = "success") => {
     setNotification({ title, message, type });
-    setTimeout(() => setNotification(null), 8000);
+    setTimeout(() => setNotification(null), 15000);
   };
 
   return (
