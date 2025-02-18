@@ -21,7 +21,7 @@ const TrainBooking = ({ showNotification }) => {
 
   const fetchTrains = async () => {
     try {
-      const response = await fetch("https://railway-booking-system-qf4u.onrender.com/api/trains", {
+      const response = await fetch("https://railway-booking-system-blza.onrender.com/api/trains", {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
@@ -37,7 +37,7 @@ const TrainBooking = ({ showNotification }) => {
     try {
       setLoading(true);
       const response = await fetch(
-        `https://railway-booking-system-qf4u.onrender.com/api/trains/${selectedTrain}/availability`,
+        `https://railway-booking-system-blza.onrender.com/api/trains/${selectedTrain}/availability`,
         {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -61,7 +61,7 @@ const TrainBooking = ({ showNotification }) => {
 
     try {
       setLoading(true);
-      const response = await fetch("https://railway-booking-system-qf4u.onrender.com/api/bookings", {
+      const response = await fetch("https://railway-booking-system-blza.onrender.com/api/bookings", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -19,8 +19,8 @@ const AuthForm = ({ setIsAuthenticated, showNotification }) => {
     e.preventDefault();
     try {
       const endpoint = formData.isLogin 
-        ? "https://railway-booking-system-qf4u.onrender.com/api/login" 
-        : "https://railway-booking-system-qf4u.onrender.com/api/register";
+        ? "https://railway-booking-system-blza.onrender.com/api/login" 
+        : "https://railway-booking-system-blza.onrender.com/api/register";
       
       const payload = formData.isLogin
         ? { 
