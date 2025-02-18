@@ -63,6 +63,19 @@ router.post("/bookings", authenticate, async (req, res) => {
   }
 });
 
+router.get("/bookings/:bookingId", async (req, res) => {
+  try {
+    const booking = await Booking.findOne({ bookingId: req.params.bookingId });
+    if (!booking) {
+      return res.status(404).json({ message: "Booking not found" });
+    }
+    res.json({ status: booking.status });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
 router.put("/bookings/:bookingId/cancel", authenticate, async (req, res) => {
   try {
     const booking = await Booking.findOne({
