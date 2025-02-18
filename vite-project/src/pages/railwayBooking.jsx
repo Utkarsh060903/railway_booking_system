@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import Notification from "../components/Notification";
 import TrainBooking from "../components/TrainBooking";
 import BookingManagement from "../components/BookingManagement";
+import AuthForm from "../components/AuthForm";
 
 const RailwaySystem = () => {
   const [notification, setNotification] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const showNotification = (title, message, type = "success") => {
     setNotification({ title, message, type });
@@ -18,10 +20,14 @@ const RailwaySystem = () => {
           Railway Reservation System
         </h1>
         <Notification notification={notification} />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <TrainBooking showNotification={showNotification} />
-          <BookingManagement showNotification={showNotification} />
-        </div>
+        {!isAuthenticated ? (
+          <AuthForm setIsAuthenticated={setIsAuthenticated} showNotification={showNotification} />
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <TrainBooking showNotification={showNotification} />
+            <BookingManagement showNotification={showNotification} />
+          </div>
+        )}
       </div>
     </div>
   );
