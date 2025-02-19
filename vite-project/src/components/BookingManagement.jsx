@@ -23,25 +23,43 @@ const BookingManagement = ({ showNotification }) => {
       setLoading(false);
     }
   };
-
+  
   const cancelTicket = async () => {
     if (!bookingId) {
       showNotification("Error", "Please enter booking ID", "error");
       return;
     }
-
+  
     try {
       setLoading(true);
-      await fetch(`https://railway-booking-system-blza.onrender.com/api/bookings/${bookingId}/cancel`, {
-        method: "PUT",
-      });
-      showNotification("Success", "Booking cancelled successfully");
+      const response = await fetch(
+        `https://railway-booking-system-blza.onrender.com/api/bookings/${bookingId}/cancel`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`, // Ensure authentication
+          },
+        }
+      );
+  
+      const data = await response.json();
+  
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to cancel booking");
+      }
+  
+      showNotification(
+        "Success",
+        `Booking cancelled successfully for Train ID: ${data.trainId}\nStatus: ${data.status}`
+      );
     } catch (error) {
       showNotification("Error", error.message, "error");
     } finally {
       setLoading(false);
     }
   };
+  
 
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden">

@@ -5,8 +5,8 @@ const TrainBooking = ({ showNotification }) => {
   const [selectedTrain, setSelectedTrain] = useState(null);
   const [loading, setLoading] = useState(false);
   const [isAuthorized, setIsAuthorized] = useState(false);
-  
-  const userId = localStorage.getItem('userId');
+
+  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     if (!userId) {
@@ -14,18 +14,21 @@ const TrainBooking = ({ showNotification }) => {
       setIsAuthorized(false);
       return;
     }
-    
+
     setIsAuthorized(true);
     fetchTrains();
   }, [userId]);
 
   const fetchTrains = async () => {
     try {
-      const response = await fetch("https://railway-booking-system-blza.onrender.com/api/trains", {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
+      const response = await fetch(
+        "https://railway-booking-system-blza.onrender.com/api/trains",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
-      });
+      );
       const data = await response.json();
       setTrains(data);
     } catch (error) {
@@ -40,12 +43,15 @@ const TrainBooking = ({ showNotification }) => {
         `https://railway-booking-system-blza.onrender.com/api/trains/${selectedTrain}/availability`,
         {
           headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
-          }
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
       );
       const data = await response.json();
-      showNotification("Seat Availability", `Available seats: ${data.availableSeats}`);
+      showNotification(
+        "Seat Availability",
+        `Available seats: ${data.availableSeats}`
+      );
     } catch (error) {
       showNotification("Error", "Failed to check availability", "error");
     } finally {
@@ -61,21 +67,30 @@ const TrainBooking = ({ showNotification }) => {
 
     try {
       setLoading(true);
-      const response = await fetch("https://railway-booking-system-blza.onrender.com/api/bookings", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-        body: JSON.stringify({ 
-          trainId: selectedTrain, 
-          userId: userId 
-        }),
-      });
+      const response = await fetch(
+        "https://railway-booking-system-blza.onrender.com/api/bookings",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({
+            trainId: selectedTrain,
+            userId: userId,
+          }),
+        }
+      );
 
       const data = await response.json();
       if (response.ok) {
-        showNotification("Success", `Booking confirmed! Booking ID: ${data.bookingId}`, "success");
+        localStorage.setItem("bookingId", data.bookingId);
+
+        showNotification(
+          "Success",
+          `Booking confirmed! Booking ID: ${data.bookingId}`,
+          "success"
+        );
       } else {
         throw new Error(data.message);
       }

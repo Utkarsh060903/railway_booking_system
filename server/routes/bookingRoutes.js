@@ -82,6 +82,7 @@ router.put("/bookings/:bookingId/cancel", authenticate, async (req, res) => {
       bookingId: req.params.bookingId,
       userId: req.user.userId,
     });
+
     if (!booking)
       return res
         .status(404)
@@ -92,13 +93,24 @@ router.put("/bookings/:bookingId/cancel", authenticate, async (req, res) => {
     }
 
     const train = await Train.findOne({ trainId: booking.trainId });
+
+    if (!train) {
+      return res.status(404).json({ message: "Train not found" });
+    }
+
     train.bookedSeats = train.bookedSeats.filter(
       (seat) => seat.bookingId !== booking.bookingId
     );
 
     booking.status = "cancelled";
+
     await Promise.all([booking.save(), train.save()]);
-    res.json(booking);
+
+    res.json({
+      message: "Booking cancelled successfully",
+      status: booking.status,
+      trainId: booking.trainId,
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
