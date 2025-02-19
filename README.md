@@ -65,7 +65,7 @@ The application should now be running at `http://localhost:5173/`.
 
 ### 1. User Registration and Login
 - Register by providing your details.
-- Login with your registered credentials.
+- Login with your registered credentials(It might take some time to load the main page).
 
 ### 2. Train Selection & Booking
 - Select a train and check its availability.
