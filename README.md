@@ -41,7 +41,7 @@ npm install
 #### 3. Configure Environment Variables
 Create a `.env` file in the `server` directory and add the following:
 ```env
-MONGO_URI=your_mongodb_connection_string
+MONGO_DB=your_mongodb_connection_string
 JWT_SECRET=your_secret_key
 ```
 
